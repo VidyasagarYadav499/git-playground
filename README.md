@@ -136,6 +136,123 @@ git merge origin/main           # Merges the fetched changes into the main branc
 | `git tag [tagname]` | Creates a tag at the current commit. |
 | `git diff` | Shows changes between commits, the working directory, and staging area. |
 
+## Interactive Rebase 🌵
+
+Interactive Rebase is a tool for optimizing and cleaning up your commit history. It's like a swiss-army knife for git operations.
+It can help peform various operations:
+ - Change a commit's message.
+ - Delete commits.
+ - Reorder commits,
+ - Squash: Combine multiple commits into one.
+ - Edit/split an existing commit into mutliple new ones.
+
+> ⚠️ **Warning:** Do NOT use Interactive Rebase on commits that you have already pushed/shared on a remote repository! Instead, use it to clean your local commit history before merging it into a shared team branch. Remember this mantra, **NEVER REBASE PUSHED COMMITS!**
+
+### Workflow 🍃༄
+#### Step 1: Determine the Base Commit
+1. **How far do you want to go?**
+   - Decide which commit you want to start from, at least the ancestor or parent of the commit you want to change.
+
+2. **Choose the Base Commit**:
+   - Use `git log` or `git log --oneline` to find the appropriate commit hash or relative reference.
+   
+     ```
+     git log --oneline
+     ```
+
+#### Step 2: Start the Interactive Rebase
+1. **Run the Command**:
+   - Start the interactive rebase with one of the following commands:
+
+     ```
+     git rebase --interactive HEAD~3
+     ```
+     OR
+     ```
+     git rebase -i HEAD~3
+     ```
+     OR
+     ```
+     git rebase -i <hash>
+     ```
+
+#### Step 3: Choose Actions in the Editor
+1. **Editor Opens**:
+   - A text editor will open, listing commits from the base commit to the HEAD.
+   
+2. **Determine Actions**:
+   - For each commit, specify the action to perform:
+     - `pick`: Use the commit as is (default).
+     - `reword`: Change the commit message.
+     - `edit`: Amend the commit content.
+     - `squash`: Combine this commit with the previous one, merging messages.
+     - `fixup`: Combine with the previous commit, discarding this commit's message.
+     - `drop`: Remove the commit entirely.
+
+3. **Example**:
+   ```
+   pick abc123 Commit message 1
+   reword def456 Commit message 2
+   edit ghi789 Commit message 3
+   ```
+
+4. **Save and Close**:
+   - Save the file and close the editor to proceed.
+
+#### Step 4: Execute Actions
+1. **Reword Commit Messages**:
+   - If `reword` was chosen, Git will prompt you to edit the commit message. Update the message, save, and close.
+
+2. **Edit Commit Content**:
+   - If `edit` was chosen, Git will pause the rebase. Make your changes, stage them, and amend the commit:
+     
+     ```
+     git add <file>
+     git commit --amend
+     ```
+   - Continue the rebase:
+     
+     ```
+     git rebase --continue
+     ```
+
+3. **Resolve Conflicts** (if any):
+   - If conflicts arise, resolve them manually, then stage the resolved files:
+     
+     ```
+     git add <file>
+     ```
+   - Continue the rebase:
+     
+     ```
+     git rebase --continue
+     ```
+   - To abort the rebase if needed:
+     
+     ```
+     git rebase --abort
+     ```
+
+#### Step 5: Finalize and Verify
+1. **Completion**:
+   - Once all commits are processed, the rebase completes successfully.
+     
+2. **Review History**:
+   - Check the updated commit history to ensure everything is as expected:
+     
+     ```
+     git log --oneline
+     ```
+
+#### Additional Tips:
+- **Backup Branch**: Before rebasing, create a backup branch for safety:
+  
+  ```
+  git branch backup-branch
+  ```
+  
+- **Rebase Shared History**: Be cautious when rebasing commits that have been shared with others. Coordinate with your team to avoid issues.
+
 ## Important Points ⚠
 
 1. Suppose you create a branch, say `my-branch` and you work on this and do not commit the changes and try to switch to some other branch, say `main` you may loose the changes you made on `my-branch`. Commit your changes before switching branches!
