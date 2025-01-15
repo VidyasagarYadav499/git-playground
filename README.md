@@ -82,58 +82,92 @@ git merge origin/main           # Merges the fetched changes into the main branc
 ## Git-Commands 📖
 | Command | Description |
 |---|---|
-| **Initialization Commands** | |
+| **Initialization Commands** |  |
 | `git init` | Initializes a new git repository by adding a `.git` folder to it. |
-| `git clone [url]` | Creates a copy of an existing repository from a remote URL. |
-| **Staging Commands** | |
+| `git clone ` | Creates a copy of an existing repository from a remote URL. |
+| **Staging Commands** |  |
 | `git add -A` | Adds all changes (tracked and untracked) to the staging area. |
 | `git add .` | Adds new/untracked files or modified files to the staging area in the current directory. |
-| `git add [file]` | Adds a specific file to the staging area. |
-| **Commit Commands** | |
+| `git add ` | Adds a specific file to the staging area. |
+| **Commit Commands** |  |
 | `git commit -m "message"` | Commits changes with a message. |
 | `git commit --amend` | Adds changes to the latest commit and allows editing the commit message. |
 | `git commit -a -m "message"` | Commits all tracked files with a message, skipping the staging area. |
-| **Status Commands** | |
+| **Status Commands** |  |
 | `git status` | Displays the status of the working directory and staging area. |
 | `git status -s` | Shows a short format for the status. |
-| **Configuration Commands** | |
+| **Push Commands** |  |
+| `git push` | Pushes changes from the local repository to the remote repository's default branch. |
+| `git push ` | Pushes changes to the specified remote repository's default branch. |
+| `git push  ` | Pushes the specified branch to the specified remote repository. |
+| `git push --force` | Forces the push by overwriting the remote branch history with local history. |
+| `git push --all` | Pushes all local branches to the specified remote repository. |
+| `git push --tags` | Pushes all tags to the remote repository. |
+| `git push --set-upstream  ` | Sets the remote branch as the upstream branch for the local branch and pushes to it. |
+| `git push origin main` | Pushes changes to the `main` branch of the remote repository. |
+| `git push --force` | Overwrites the remote history. |
+| **Fetch Commands** |  |
+| `git fetch` | Downloads all branches, tags, and commits from the default remote repository `origin` but does not update the local branches automatically. |
+| `git fetch ` | Fetches data (branches, history,. etc) from a specified remote repository. For example, `git fetch origin` retrieves changes from the `origin` remote. |
+| `git fetch  ` | Fetches updates from a specific branch of the remote repository. Example: `git fetch origin main` Fetches the latest updates from the `main` branch of the `origin` remote. |
+| `git fetch --all` | Fetches updates from all configured remotes. |
+| `git fetch --prune` | Removes references to branches deleted from the remote. |
+| `git fetch --dry-run` | Simulates the fetch process and shows what would be updated without actually fetching the data. |
+| **Pull Commands** |  |
+| `git pull` | Fetches and merges changes from the default remote and branch into the current branch. |
+| `git pull ` | Pulls updates from a specified remote repository into the current branch. |
+| `git pull  ` | Pulls changes from a specific branch of the remote repository into the current branch. |
+| `git pull --rebase` | Fetches changes from the remote and rebases the local branch on top of the remote branch. |
+| `git pull --strategy=` | Uses a specific merge strategy when pulling changes. |
+| `git pull --dry-run` | Simulates the pull process without making any changes. |
+| **Checkout Commands** |  |
+| `git checkout ` | Switches to the specified branch. |
+| `git checkout -b ` | Creates a new branch and switches to it. |
+| `git checkout ` | Checks out a specific commit, detaching the HEAD. |
+| `git checkout ` | Restores a specific file from the last commit or the index. |
+| **Branch Commands** |  |
+| `git branch` | Lists all local branches. |
+| `git branch ` | Creates a new branch with the specified name. |
+| `git branch -d ` | Deletes the specified branch. |
+| `git branch -m  ` | Renames the specified branch. |
+| `git branch -r` | Lists all remote branches. |
+| `git branch -a` or `--all` | Lists all branches, including remote branches. |
+| **Configuration Commands** |  |
 | `git config --global alias.sta "status"` | Creates a global alias for `git status`. |
 | `git config --global --edit` | Opens the global Git configuration file for editing. |
 | `git config --global user.name "Your Name"` | Sets the global username for commits. |
 | `git config --global user.email "you@example.com"` | Sets the global email for commits. |
-| **Checkout Commands** | |
-| `git checkout .` | Discards all changes in the working directory (cannot be undone). |
-| `git checkout [branch]` | Switches to a specified branch. |
-| `git checkout -b [new-branch]` | Creates and switches to a new branch. |
-| **Remote Commands** | |
-| `git push origin main` | Pushes changes to the `main` branch of the remote repository. |
-| `git remote -v` | Displays the URLs of the remote repositories linked to your local Git repository. |
-| `git remote add [name] [url]` | Adds a new remote repository. |
-| **Log Commands** | |
+| **Remote Commands** |  |
+| `git remote` | Lists all the remote repositories configured for the current repository. |
+| `git remote -v` | Lists all the remote repositories with their URLs. |
+| `git remote add <name> <url>` | Adds a new remote repository with the specified name and URL. |
+| `git remote remove <name>` | Removes the specified remote repository. |
+| `git remote rename <old> <new>` | Renames a remote repository from `` to ``. |
+| `git remote show <name>` | Displays detailed information about the specified remote repository. |
+| `git remote set-url <name> <url>` | Changes the URL of a remote repository. |
+| **Log Commands** |  |
 | `git log` | Shows the commit history. |
 | `git log --all --decorate --oneline --graph` | Displays a detailed log with all commits, decorations, oneline format, and a graph view. |
 | `git log -p` | Shows the commit history with the diffs of each commit. |
-| **Reset and Stash Commands** | |
+| **Reset Commands** |  |
 | `git reset HEAD` | Unstages a file without removing changes. |
 | `git reset --hard` | Resets the working directory and staging area to the last commit, discarding all changes. |
+| **Stash Commands** |  |
 | `git stash` | Stashes uncommitted changes temporarily. |
 | `git stash pop` | Applies the last stashed changes. |
-| **Clean Commands** | |
+| **Clean Commands** |  |
 | `git clean -df` | Removes untracked files and directories forcefully. |
 | `git clean -n` | Shows what would be removed by `git clean`. |
-| **Pull and Rebase Commands** | |
-| `git pull --rebase` | Pulls changes and rebases them on top of your local commits. |
-| `git rebase --abort` | Aborts the rebase process. |
-| `git rebase [branch]` | Rebases the current branch onto another branch. |
-| **Branch Commands** | |
-| `git branch -a` | Lists all branches, including remote branches. |
-| `git branch -r` | Lists remote branches. |
-| `git branch -d [branch]` | Deletes a local branch. |
-| **Fetch Commands** | |
-| `git fetch --prune` | Removes references to branches deleted from the remote. |
-| `git fetch [remote]` | Fetches branches and history from a remote repository. |
-| **Miscellaneous** | |
-| `git tag [tagname]` | Creates a tag at the current commit. |
+| **Rebase Commands** |  |
+| `git rebase ` | Rebases the current branch on top of the specified branch. |
+| `git rebase /` | Rebases the current branch on top of a remote branch. |
+| `git rebase --onto   ` | Rebases the specified branch onto a new base, applying only commits that are not in the upstream. |
+| `git rebase --continue` | Continues the rebase process after resolving conflicts. |
+| `git rebase --abort` | Aborts the rebase process and returns to the state before rebase started. |
+| `git rebase --skip` | Skips the current patch during a rebase if conflicts arise. |
+| `git rebase --interactive` | Starts an interactive rebase session allowing you to edit, squash, or reorder commits. |
+| **Miscellaneous** |  |
+| `git tag ` | Creates a tag at the current commit. |
 | `git diff` | Shows changes between commits, the working directory, and staging area. |
 
 ## Interactive Rebase 🌵
