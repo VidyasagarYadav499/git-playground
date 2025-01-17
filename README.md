@@ -1,11 +1,19 @@
+# Table of Contents
+
+- [Hello World! 🌏](#hello-world-)
+- [Git & GitHub Workflow 📚✨🌐](#git--github-workflow-)
+- [Git Commands 📖](#git-commands-)
+- [Complete Guide to Git Merging and Rebasing 🔄](#complete-guide-to-git-merging-and-rebasing-)
+- [Interactive Rebase 🌵](#interactive-rebase-)
+- [Important Points ⚠](#important-points-)
+
 # Hello World! 🌏
-Hi there!👋, my name is **Vidyasagar Yadav**.  
-And this is the **first repository** that i have created, to embark on a journey of learning and practicing **Git** &amp; **Github** along with it's functions and features.
+
+Hi there!👋, my name is **Vidyasagar Yadav** and this is the **first repository** that i have created, to embark on a journey of learning and practicing **Git** & **Github** along with it's various functions and features.
 
 # Git & GitHub Workflow 📚✨🌐
 
 ## 1. Clone the Repository 💾✨🌍
-
 To start working on a project, clone the repository from GitHub to your local machine.
 
 ```
@@ -13,39 +21,36 @@ git clone <repo-url>
 ```
 
 ## 2. Create a New Branch 🌳✨🔧
-
 Before making changes, create a new branch to keep your work separate from the main branch.
 
 ```
 git checkout -b <branch-name>  # Creates and switches to a new branch
-git branch <branch-name>        # Creates a new branch
-git checkout <branch-name>      # Switches to the newly created branch
+git branch <branch-name>       # Creates a new branch
+git checkout <branch-name>     # Switches to the newly created branch
 ```
 
 Alternatively, you can use:
 
 ```
-git branch -c <branch-name>     # Creates a new branch and copies the current branch's history
+git branch -c <branch-name>    # Creates a new branch and copies the current branch's history
 ```
 
 ## 3. Work on Your Branch 📚🌿✨
-
 Make your changes, then stage and commit them.
 
 ```
-git add .                       # Stages all changes in the current directory
-git commit -m "commit message"  # Commits the staged changes with a descriptive message
+git add .                      # Stages all changes in the current directory
+git commit -m "commit message" # Commits the staged changes with a descriptive message
 ```
 
 Use these additional commands if needed:
 
 ```
-git status                      # Shows the status of the working directory
-git diff                        # Shows the differences between the working directory and the index
+git status                     # Shows the status of the working directory
+git diff                       # Shows the differences between the working directory and the index
 ```
 
 ## 4. Push Your Branch to Remote Repository 🌐📢✨
-
 Push your branch to the remote repository to share your changes.
 
 ```
@@ -53,33 +58,28 @@ git push -u origin <branch-name>  # Pushes the branch and sets the upstream refe
 ```
 
 ## 5. Create a Pull Request on GitHub 🔧📚🌟
-
 Go to GitHub, navigate to your repository, and create a pull request to propose your changes for review.
 
 ## 6. Review and Merge 💡🌿🔄
-
 After the pull request is reviewed and approved, merge it into the main branch on GitHub.
 
 ## 7. Update Your Local Repository (main branch) 🌐🔧🌿
-
 Keep your local main branch up-to-date with the remote repository.
 
 ```
-git switch main                 # Switches to the main branch
-git pull origin main            # Pulls the latest changes from the remote main branch
+git switch main                # Switches to the main branch
+git pull origin main          # Pulls the latest changes from the remote main branch
 ```
 
 Alternatively, you can use:
 
 ```
-git checkout main               # Switches to the main branch
-git fetch origin                # Fetches changes from the remote repository
-git merge origin/main           # Merges the fetched changes into the main branch
+git checkout main              # Switches to the main branch
+git fetch origin               # Fetches changes from the remote repository
+git merge origin/main         # Merges the fetched changes into the main branch
 ```
 
-# Rough-Notes 📝
-
-## Git-Commands 📖
+# Git Commands 📖
 | Command | Description |
 |---|---|
 | **Initialization Commands** |  |
@@ -157,7 +157,179 @@ git merge origin/main           # Merges the fetched changes into the main branc
 | `git diff --staged` | Shows staged changes. |
 | `git diff <commit1> <commit2>` | Shows changes between two commits. Example: `git diff abc1234 def5678` |
 
-## Interactive Rebase 🌵
+# Complete Guide to Git Merging and Rebasing 🔄
+
+## 1. Basic Git Merging 🧩
+
+### What is Merging?
+Merging is like combining different versions of your work into one final version. In Git, it's the process of integrating changes from one branch into another.
+
+### Basic Merge Commands
+```
+# Switch to target branch (e.g., main)
+git checkout main
+
+# Merge another branch into current branch
+git merge feature-branch
+```
+
+## 2. Handling Merge Conflicts ⚡
+
+### What a Conflict Looks Like
+```
+<<<<<<< HEAD (Current branch)
+Your changes
+=======
+Their changes
+>>>>>>> feature-branch
+```
+
+### Steps to Resolve Conflicts
+1. Check conflicted files:
+```
+git status
+```
+
+2. Edit conflicted files
+- Remove conflict markers
+- Choose desired changes
+- Save files
+
+3. Complete the merge:
+```
+# Add resolved files
+git add fixed-file.txt
+
+# Commit the merge
+git commit -m "Resolved merge conflicts"
+```
+
+## 3. Three-Way Merge 🌟
+A three-way merge occurs when Git needs to consider three different versions:
+- Common ancestor (original version)
+- Your branch changes
+- Their branch changes
+
+```
+# Automatic three-way merge
+git checkout main
+git merge feature-branch
+```
+
+Git automatically performs a three-way merge when needed by comparing:
+1. Last common commit between branches
+2. Latest commit on main
+3. Latest commit on feature-branch
+
+## 4. Rebasing 🔄
+
+### Basic Rebase Command
+```
+# Go to branch to rebase
+git checkout feature-branch
+
+# Rebase onto main
+git rebase main
+```
+
+### Complete Rebase Process
+1. Save current work:
+```
+git add .
+git commit -m "Save changes"
+```
+
+2. Update main:
+```
+git checkout main
+git pull
+```
+
+3. Perform rebase:
+```
+git checkout feature-branch
+git rebase main
+```
+
+### Handling Rebase Conflicts
+```
+# After fixing conflicts
+git add fixed-file.txt
+git rebase --continue
+
+# To cancel rebase
+git rebase --abort
+```
+
+## 5. Merge vs. Rebase Comparison
+
+### Merge Structure
+```
+Before merge:
+A---B---C (main)
+     \
+      D---E (feature)
+      
+After merge:
+A---B---C---F (main)
+     \     /
+      D---E (feature)
+```
+
+### Rebase Structure
+```
+Before rebase:
+A---B---C (main)
+     \
+      D---E (feature)
+      
+After rebase:
+A---B---C (main)
+         \
+          D'---E' (feature)
+```
+
+## 6. When to Use What
+
+### Use Merge When:
+- Working on shared branches
+- Need to preserve exact history
+- Working on long-running features
+
+### Use Rebase When:
+- Keeping feature branch updated with main
+- Want a linear history
+- Working on personal branches
+
+## 7. Best Practices
+
+### Safety Tips 🛡️
+1. Always verify current branch before merging/rebasing
+2. Keep work backed up
+3. Seek help when uncertain
+4. Take time with conflict resolution
+
+### Golden Rules for Rebasing 👑
+1. Never rebase shared branches
+2. Rebase before pushing to remote
+3. Default to merge if unsure
+
+### Helpful Commands
+```
+# Check current branch
+git branch
+
+# View status
+git status
+
+# Abort merge
+git merge --abort
+
+# Abort rebase
+git rebase --abort
+```
+
+# Interactive Rebase 🌵
 
 Interactive Rebase is a tool for optimizing and cleaning up your commit history. It's like a swiss-army knife for git operations.
 It can help peform various operations:
@@ -169,8 +341,8 @@ It can help peform various operations:
 
 > ⚠️ **Warning:** Do NOT use Interactive Rebase on commits that you have already pushed/shared on a remote repository! Instead, use it to clean your local commit history before merging it into a shared team branch. Remember this mantra, **NEVER REBASE PUSHED COMMITS!**
 
-### Workflow 🍃༄
-#### Step 1: Determine the Base Commit
+## Workflow 🍃༄
+### Step 1: Determine the Base Commit
 1. **How far do you want to go?**
    - Decide which commit you want to start from, at least the ancestor or parent of the commit you want to change.
 
@@ -181,7 +353,7 @@ It can help peform various operations:
      git log --oneline
      ```
 
-#### Step 2: Start the Interactive Rebase
+### Step 2: Start the Interactive Rebase
 1. **Run the Command**:
    - Start the interactive rebase with one of the following commands:
 
@@ -197,7 +369,7 @@ It can help peform various operations:
      git rebase -i <hash>
      ```
 
-#### Step 3: Choose Actions in the Editor
+### Step 3: Choose Actions in the Editor
 1. **Editor Opens**:
    - A text editor will open, listing commits from the base commit to the HEAD.
    
@@ -220,7 +392,7 @@ It can help peform various operations:
 4. **Save and Close**:
    - Save the file and close the editor to proceed.
 
-#### Step 4: Execute Actions
+### Step 4: Execute Actions
 1. **Reword Commit Messages**:
    - If `reword` was chosen, Git will prompt you to edit the commit message. Update the message, save, and close.
 
@@ -254,7 +426,7 @@ It can help peform various operations:
      git rebase --abort
      ```
 
-#### Step 5: Finalize and Verify
+### Step 5: Finalize and Verify
 1. **Completion**:
    - Once all commits are processed, the rebase completes successfully.
      
@@ -265,7 +437,7 @@ It can help peform various operations:
      git log --oneline
      ```
 
-#### Additional Tips:
+## Additional Tips:
 - **Backup Branch**: Before rebasing, create a backup branch for safety:
   
   ```
@@ -274,6 +446,6 @@ It can help peform various operations:
   
 - **Rebase Shared History**: Be cautious when rebasing commits that have been shared with others. Coordinate with your team to avoid issues.
 
-## Important Points ⚠
+# Important Points ⚠
 
 1. Suppose you create a branch, say `my-branch` and you work on this and do not commit the changes and try to switch to some other branch, say `main` you may loose the changes you made on `my-branch`. Commit your changes before switching branches!
